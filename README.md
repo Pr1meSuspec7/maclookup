@@ -1,6 +1,6 @@
 # MAC Address Vendor Lookup
 
-This Python script allows you to look up the vendor for one or more MAC addresses using a local database file. You can also update the database from [maclookup.app](https://maclookup.app/downloads/json-database/get-db?).
+This Python script allows you to look up the vendor for one or more MAC addresses using a local database file. You can also update the database from [maclookup.app](https://maclookup.app/downloads/json-database).
 
 ## Requirements
 
