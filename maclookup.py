@@ -5,6 +5,9 @@ import sys
 import json
 import argparse
 import re
+import os
+from pathlib import Path
+
 
 # Argument definitions
 parser = argparse.ArgumentParser(description='Mac address vendor lookup.')
@@ -17,19 +20,31 @@ args = parser.parse_args()
 # args = parser.parse_args(['-m', '00:16:9C:11:11:11 00:50:56:11:11:11'])
 
 
-def load_db():
-    with open('mac-vendors-export.json', 'r') as file:
+# Database file path
+home = Path.home()
+db_file = f'{home.as_posix()}/Documents/mac-vendors-export.json'
+
+
+def check_db_exist(db_file):
+    if os.path.isfile(db_file) is False:
+        download_db(db_file)
+    else:
+        pass
+
+
+def load_db(db_file):
+    with open(db_file, 'r', encoding="utf8") as file:
         return json.load(file)
 
 
-def download_db():
+def download_db(db_file):
     print('Downloading the latest MAC address database...')
     url = 'https://maclookup.app/downloads/json-database/get-db?'
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(url, headers=headers)
     
     if response.status_code == 200:
-        with open('mac-vendors-export.json', 'w') as file:
+        with open(db_file, 'w', encoding="utf-8") as file:
             file.write(response.text)
         print("Database downloaded successfully.")
     else:
@@ -66,10 +81,11 @@ def maclookup(db, maclist):
 
 def main():
     if args.update:
-        download_db()
+        download_db(db_file)
     else:
         maclist = args.mac
-        db = load_db()
+        check_db_exist(db_file)
+        db = load_db(db_file)
         maclookup(db, maclist)
 
 

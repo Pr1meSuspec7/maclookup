@@ -50,4 +50,10 @@ AA:BB:CC:DD:EE:11 - Vendor not found
 ## Notes
 
 - Supported MAC address formats: colon (`:`), dash (`-`), dot (`.`).
-- The script selects the vendor with the longest-match mac address
+- The script selects the vendor with the longest-match mac address.
+- The database is stored in your $HOME/Documents folder.
+
+## Compatibility
+
+- **Linux:** Fully supported.
+- **Windows:** Fully supported. You can use the .exe file without install python.
